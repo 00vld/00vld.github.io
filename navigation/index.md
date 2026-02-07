@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /notes/
+permalink: /navigation/
 ---
 This is just a place where I write things down while I’m working.
 Mostly notes from labs, tools, and problems I run into.
