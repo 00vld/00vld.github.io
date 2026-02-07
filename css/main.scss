@@ -1,0 +1,337 @@
+---
+---
+@import "uno";
+@import "tables";
+@import "monokai";
+
+/* Modifications */
+
+pre.highlight,
+.highlight pre {
+  padding: 10px;
+}
+
+pre.highlight code,
+.highlight pre code {
+  white-space: pre-wrap;
+}
+
+.btn,
+.navigation__item a {
+  margin: 5px 0;
+  white-space: nowrap;
+}
+
+.pagination__page-number {
+  display: inline-block;
+  padding: 10px;
+}
+
+.categories a,
+.tags a {
+  border: 1px solid #e25440;
+  border-radius: 20px;
+  color: #e25440;
+  display: inline-block;
+  font-size: 12px;
+  margin: 5px 0;
+  padding: 5px 10px;
+  text-shadow: none;
+  white-space: nowrap;
+}
+
+.post-meta__tags {
+  font-size: 12px;
+  padding: 0 5px;
+}
+
+.footer__copyright {
+  margin: 0 20px 10px;
+}
+
+.user-image {
+  margin-bottom: 1.2em;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border: 3px solid #fff;
+  border-radius: 100%;
+}
+
+/* ---- Dark blog override (SAFE) ---- */
+
+body {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  background: #0f1115;
+}
+
+body.page-loaded {
+  opacity: 1;
+}
+
+.content-wrapper {
+  background: #0f1115;
+  color: #d1d5db;
+  min-height: 100vh;
+}
+
+.content-wrapper__inner {
+  color: #d1d5db;
+}
+
+.post,
+.post-preview,
+.post-content {
+  background: transparent;
+  color: #d1d5db;
+}
+
+.post-title,
+.post h1,
+.post h2,
+.post h3,
+.post h4 {
+  color: #f3f4f6;
+}
+
+.post-meta,
+.post-date,
+.post-tags {
+  color: #9ca3af;
+}
+
+.post-content p {
+  line-height: 1.7;
+}
+
+.post-content a {
+  color: #60a5fa;
+}
+
+.post-content a:hover {
+  color: #93c5fd;
+}
+
+.footer {
+  background: transparent;
+  color: #9ca3af;
+}
+
+/* Space between post title and content (no size change) */
+
+.post-title,
+.post h1 {
+  margin-bottom: 1.2em;
+}
+
+.post-content p:first-of-type {
+  margin-top: 0;
+}
+
+/* True sticky footer for Jekyll-Uno */
+
+.content-wrapper__inner {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main post content grows */
+.post,
+.post-list {
+  flex: 1;
+}
+
+/* Footer stays at bottom */
+.site-footer,
+.footer {
+  margin-top: auto;
+}
+
+/* Move post date near footer (CSS-only, Uno-safe) */
+
+.post {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* Content grows to push date down */
+.post-content {
+  flex: 1;
+}
+
+/* Move date block visually below content */
+.post-meta {
+  order: 3;
+  margin-top: 3rem;
+}
+
+/* Ensure header stays on top */
+.post-header {
+  order: 1;
+}
+
+/* Center post content instead of left-offset layout */
+
+.content-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content-wrapper__inner {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 720px; /* adjust if you want wider */
+}
+
+/* === Single post readable layout === */
+
+.post-container--single {
+  display: flex;
+  justify-content: center;
+}
+
+.post-container--single .post {
+  max-width: 680px;
+  width: 100%;
+}
+
+/* Typography cleanup */
+
+.post-container--single .post p,
+.post-container--single .post li {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #d1d5db;
+}
+
+.post-container--single .post h2,
+.post-container--single .post h3 {
+  margin-top: 2.5rem;
+}
+
+.post-container--single .post ul {
+  margin-left: 1.2rem;
+}
+
+.blog-sections {
+  margin-bottom: 3rem;
+}
+
+.blog-sections h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.section-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.section-links li {
+  margin-bottom: 1.2rem;
+}
+
+.section-links a {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #f3f4f6;
+  text-decoration: none;
+}
+
+.section-links a:hover {
+  color: #60a5fa;
+}
+
+.section-links span {
+  display: block;
+  font-size: 0.9rem;
+  color: #9ca3af;
+  margin-top: 0.2rem;
+}
+
+/* ===== Minimal dark scrollbar (replacement) ===== */
+
+/* Chrome, Edge, Brave */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.073) transparent;
+}
+
+/* ===== Disable sticky-footer stretch on blog index ===== */
+
+body.home .content-wrapper__inner {
+  min-height: auto;
+  display: block;
+}
+
+body.home .post-list {
+  flex: none;
+}
+
+.content-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-wrapper__inner {
+  padding: 0;
+  min-height: auto;
+  display: block;
+}
+
+.post,
+.post-list,
+.post-container--single {
+  flex: 1 0 auto;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.site-footer,
+.footer {
+  margin-top: auto;
+}
+
+/* Remove excessive spacing under intro / single post list */
+.main-post-list {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Kill extra spacing from lists inside it */
+.main-post-list ol,
+.main-post-list ul {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Divider spacing fix */
+.post-list__divider {
+  margin: 1.5rem 0;
+}
+
