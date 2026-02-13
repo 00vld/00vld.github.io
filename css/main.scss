@@ -335,61 +335,13 @@ body.home .post-list {
   margin: 1.5rem 0;
 }
 
-/* ===== Clean Uno Sidebar Layout (Final) ===== */
+/* ===== Adjust Collapsed Sidebar Width (Safe Override) ===== */
 
-/* ================= Desktop ================= */
 @media (min-width: 961px) {
 
-  /* Default state (homepage full cover) */
-  .panel-cover {
-    width: 100% !important;
-    transition: width 0.4s ease;
-  }
-
-  /* Collapsed state (About / Posts open) */
+  /* Only change collapsed width */
   .panel-cover.panel-cover--collapsed {
-    width: 30% !important;          /* Adjust 28–32% if desired */
-    position: fixed !important;
-    left: 0;
-    top: 0;
-    height: 100vh;
-  }
-
-  /* Content appears when collapsed */
-  .panel-cover.panel-cover--collapsed + .content-wrapper {
-    margin-left: 30% !important;    /* MUST match sidebar width */
-    width: auto !important;
-  }
-
-  /* Center inner content */
-  .content-wrapper__inner {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-
-}
-
-
-/* ================= Mobile ================= */
-@media (max-width: 960px) {
-
-  .panel-cover,
-  .panel-cover.panel-cover--collapsed {
-    position: relative !important;
-    width: 100% !important;
-    height: auto !important;
-  }
-
-  .content-wrapper {
-    margin-left: 0 !important;
-    width: 100% !important;
-  }
-
-  .content-wrapper__inner {
-    max-width: 90%;
-    margin: 0 auto;
-    padding: 1.5rem 1rem;
+    width: 30% !important;   /* adjust 28–32% */
   }
 
 }
