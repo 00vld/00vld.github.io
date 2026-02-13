@@ -9,13 +9,13 @@ $(document).ready(function () {
   const $panel = $('.panel-cover')
   const $content = $('.content-wrapper')
 
-  $('body').addClass('page-loaded')
-
-  {% if site.disable_landing_page != true %}
-
   const isHome =
     window.location.pathname === '{{ site.baseurl }}/' ||
     window.location.pathname === '{{ site.baseurl }}/index.html'
+
+  $('body').addClass('page-loaded')
+
+  {% if site.disable_landing_page != true %}
 
   /* Auto collapse when NOT homepage */
   if (!isHome) {
@@ -33,35 +33,16 @@ $(document).ready(function () {
 
     e.preventDefault()
 
-    const isCollapsed = $panel.hasClass('panel-cover--collapsed')
+    if (!$panel.hasClass('panel-cover--collapsed')) {
 
-    if (!isCollapsed) {
+      // Collapse using class only (no width animation)
+      $panel.addClass('panel-cover--collapsed')
+      $content.addClass('animated slideInRight')
 
-      // Mobile
-      if ($(window).width() < 960) {
-
-        $panel.addClass('panel-cover--collapsed')
-        $content.addClass('animated slideInRight')
-
-        setTimeout(function () {
-          window.location.href = targetUrl
-        }, 300)
-
-      } 
-      // Desktop
-      else {
-
-        $panel.animate(
-          { width: '30%' },
-          400,
-          'swing',
-          function () {
-            $panel.addClass('panel-cover--collapsed')
-            window.location.href = targetUrl
-          }
-        )
-      }
-
+      // Delay navigation slightly so animation feels smooth
+      setTimeout(function () {
+        window.location.href = targetUrl
+      }, 300)
     }
 
   })

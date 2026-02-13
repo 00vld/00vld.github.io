@@ -335,13 +335,8 @@ body.home .post-list {
   margin: 1.5rem 0;
 }
 
-/* ===== Adjust Collapsed Sidebar Width (Safe Override) ===== */
-
 @media (min-width: 961px) {
-
-  /* Only change collapsed width */
   .panel-cover.panel-cover--collapsed {
-    width: 30% !important;   /* adjust 28–32% */
+    width: 30% !important;   /* adjust if needed */
   }
-
 }
