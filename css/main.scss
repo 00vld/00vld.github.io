@@ -345,3 +345,12 @@ body.home .post-list {
   }
 
 }
+
+/* Auto-collapse sidebar on non-home pages */
+body:not(.home) .panel-cover {
+  width: 30%;
+}
+
+body:not(.home) .content-wrapper {
+  margin-left: 30%;
+}
