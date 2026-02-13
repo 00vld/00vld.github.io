@@ -1,7 +1,7 @@
 ---
 layout: null
 sitemap:
-exclude: 'yes'
+  exclude: 'yes'
 ---
 
 $(document).ready(function () {
@@ -16,10 +16,9 @@ $(document).ready(function () {
       window.location.pathname === '{{ site.baseurl }}/' ||
       window.location.pathname === '{{ site.baseurl }}/index.html'
 
+    // ✅ FIX: Do NOT force redirect if not home
     if (!isHome) {
-      // Force full reload back to landing page
-      window.location.href = '{{ site.baseurl }}/'
-      return
+      return   // allow normal navigation
     }
 
     e.preventDefault()
@@ -54,7 +53,7 @@ $(document).ready(function () {
         $panel
           .css({ 'max-width': currentWidth, 'width': currentWidth })
           .animate(
-            { 'max-width': '530px', 'width': '40%' },
+            { 'max-width': '530px', 'width': '30%' },
             400,
             'swing',
             function () {
