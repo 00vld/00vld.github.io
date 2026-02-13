@@ -7,17 +7,13 @@ Mostly notes from labs, tools, and problems I run into.
 Nothing polished. Just things I don’t want to forget.
 
 ---
-
 ## Notes
 
-- [Enumeration checklist](/notes/enumeration/)
+- [Enumeration checklist](/notes/)
 - [Linux privesc reminders](/notes/linux-privesc/)
 
 ---
-
 ## Writeups
 
-- [Baby {Easy}](/writeups/)
-- [RetroTwo](/writeups/)
-
+- [CodePartTwo](https://00vld.github.io/writeups/HTB_CodePartTwo)
 ---

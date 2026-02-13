@@ -335,3 +335,32 @@ body.home .post-list {
   margin: 1.5rem 0;
 }
 
+/* ===== Mobile Fix for Uno Sidebar Layout ===== */
+
+@media (max-width: 960px) {
+
+  /* Stack layout vertically */
+  .content-wrapper {
+    margin-left: 0 !important;
+  }
+
+  .panel-cover {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .panel-cover--collapsed {
+    width: 100% !important;
+  }
+
+  .content-wrapper__inner {
+    max-width: 90%;
+    padding: 1.5rem 1rem;
+  }
+
+  .post-container--single .post {
+    max-width: 100%;
+  }
+
+}
