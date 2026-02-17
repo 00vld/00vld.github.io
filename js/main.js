@@ -9,55 +9,79 @@ $(document).ready(function () {
   const $panel = $('.panel-cover')
   const $content = $('.content-wrapper')
 
-  // Check if we're on homepage
-  const isHomePage = 
-    window.location.pathname === '{{ site.baseurl }}/' ||
-    window.location.pathname === '{{ site.baseurl }}/index.html'
+  // Detect homepage - must check BEFORE any operations
+  const currentPath = window.location.pathname.replace(/\/$/, '') || '/'
+  const basePath = '{{ site.baseurl }}'.replace(/\/$/, '') || '/'
+  const isHomePage = (currentPath === basePath || currentPath === basePath + '/index.html')
+
+  console.log('DEBUG:', { currentPath, basePath, isHomePage })
 
   $('body').addClass('page-loaded')
 
   {% if site.disable_landing_page != true %}
 
-  // If not on homepage, collapse sidebar immediately
+  // If NOT on homepage, auto-collapse sidebar
   if (!isHomePage) {
     $panel.addClass('panel-cover--collapsed')
   }
 
-  // Handle all blog button clicks
+  // Handle blog button clicks
   $('a.blog-button').on('click', function (e) {
     e.preventDefault()
-    
-    const targetUrl = $(this).attr('href')
-    
-    // ============================================
-    // SCENARIO 1: We're on the homepage
-    // ============================================
+    e.stopPropagation()
+
+    const $link = $(this)
+    const targetUrl = $link.attr('href')
+    const normalizedTarget = targetUrl.replace(/\/$/, '') || '/'
+
+    console.log('Button clicked:', { targetUrl, normalizedTarget, currentPath, isHomePage })
+
+    // CASE 1: We're on homepage (full cover showing)
     if (isHomePage) {
       
-      // Add collapse class
+      // Don't do anything if clicking "About" while already on homepage
+      if (normalizedTarget === basePath || normalizedTarget === '/') {
+        console.log('Already on homepage - ignoring click')
+        return
+      }
+
+      // Clicking Notes/other page from homepage
+      console.log('Navigating from homepage to:', targetUrl)
       $panel.addClass('panel-cover--collapsed')
       $content.addClass('animated slideInRight')
       
-      // Wait for animation, then navigate
       setTimeout(function () {
         window.location.href = targetUrl
       }, 400)
       
       return
     }
+
+    // CASE 2: We're on an internal page (About/Notes)
     
-    // ============================================
-    // SCENARIO 2: We're on About or Navigation page
-    // ============================================
-    
-    // Just navigate directly (no animation needed, sidebar already collapsed)
+    // If clicking About/homepage link, go back to homepage
+    if (normalizedTarget === basePath || normalizedTarget === '/' || normalizedTarget === '') {
+      console.log('Going back to homepage')
+      window.location.href = basePath || '/'
+      return
+    }
+
+    // If clicking Notes while already on Notes, go back to homepage
+    if (normalizedTarget === currentPath) {
+      console.log('Same page clicked - going to homepage')
+      window.location.href = basePath || '/'
+      return
+    }
+
+    // Otherwise, navigate to the target page
+    console.log('Navigating to:', targetUrl)
     window.location.href = targetUrl
-    
+
   })
 
   {% endif %}
 
-  // Mobile menu
+  // Mobile menu toggle
   $('.btn-mobile-menu').on('click', function () {
     $('.navigation-wrapper').toggleClass('visible animated bounceInDown')
     $('.btn-mobile-menu__icon').toggleClass('icon-list icon-x-circle animated fadeIn')
