@@ -10,8 +10,8 @@
     <div class="panel-main__inner panel-inverted">
       <div class="panel-main__content">
         
-        <!-- Logo/Profile - DON'T make this a blog-button, just regular link -->
-        <a href="{{ site.baseurl }}/#blog" title="link to home of {{ site.title }}">
+        <!-- Logo - use #blog to trigger collapse -->
+        <a href="{{ site.baseurl }}/#blog" title="link to home of {{ site.title }}" class="blog-button">
           <img src="{{ site.baseurl }}/images/profile.jpg" class="user-image" alt="My Profile Photo">
           <h1 class="panel-cover__title panel-title">{{ site.title }}</h1>
         </a>
@@ -24,8 +24,8 @@
 
           <nav class="cover-navigation cover-navigation--primary">
             <ul class="navigation">
+              <!-- About button - #blog collapses and shows blog -->
               <li class="navigation__item">
-                <!-- About button - use #blog anchor -->
                 <a href="{{ site.baseurl }}/#blog" title="link to {{ site.title }} blog" class="blog-button">About</a>
               </li>
             </ul>
@@ -34,7 +34,7 @@
           <nav class="cover-navigation navigation--social">
             <ul class="navigation">
 
-              <!-- Notes -->
+              <!-- Notes - goes to navigation page -->
               <li class="navigation__item">
                 <a href="{{ site.baseurl }}/navigation/" title="Notes" class="blog-button">
                   <i class="icon icon-book"></i>

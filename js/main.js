@@ -5,81 +5,54 @@ sitemap:
 ---
 
 $(document).ready(function () {
+  var $panel = $('.panel-cover');
+  var $content = $('.content-wrapper');
 
-  const $panel = $('.panel-cover')
-  const $content = $('.content-wrapper')
-
-  $('body').addClass('page-loaded')
+  $('body').addClass('page-loaded');
 
   {% if site.disable_landing_page != true %}
 
-  // Check if we're on homepage
-  const pathname = window.location.pathname
-  const isHome = (
-    pathname === '{{ site.baseurl }}/' ||
-    pathname === '{{ site.baseurl }}/index.html' ||
-    pathname === '/' ||
-    pathname === '/index.html'
-  )
-
-  // Auto-collapse if not on homepage OR if #blog hash is present
-  if (!isHome || window.location.hash === '#blog') {
-    $panel.addClass('panel-cover--collapsed')
+  // Detect current path
+  var currentPath = window.location.pathname.replace('{{ site.baseurl }}/', '');
+  
+  // If not on homepage, auto-collapse
+  if (currentPath !== '' && currentPath !== 'index.html') {
+    $panel.addClass('panel-cover--collapsed');
   }
 
-  // Blog button click handler
-  $('a.blog-button').on('click', function (e) {
-    const href = $(this).attr('href')
-    const $this = $(this)
-    
-    console.log('Click:', { href, isHome, currentPath: pathname })
+  // If hash is #blog, auto-collapse
+  if (window.location.hash === '#blog') {
+    $panel.addClass('panel-cover--collapsed');
+  }
 
-    // CASE 1: Clicking "About" button (href contains #blog)
-    if (href.indexOf('#blog') !== -1) {
+  // Blog button click
+  $('a.blog-button').click(function (e) {
+    var currentWidth = $panel.width();
+   
+    // If panel is not collapsed yet, collapse it
+    if (!$panel.hasClass('panel-cover--collapsed')) {
+      e.preventDefault();
       
-      // If we're on homepage with full cover, collapse it
-      if (isHome && !$panel.hasClass('panel-cover--collapsed')) {
-        e.preventDefault()
-        $panel.addClass('panel-cover--collapsed')
-        $content.addClass('animated slideInRight')
-        return
+      if (currentWidth < 960) {
+        // Mobile
+        $panel.addClass('panel-cover--collapsed');
+        $content.addClass('animated slideInRight');
+      } else {
+        // Desktop
+        $panel.css('max-width', currentWidth);
+        $panel.animate({'max-width': '530px', 'width': '40%'}, 400, 'swing', function () {
+          $panel.addClass('panel-cover--collapsed');
+        });
       }
-      
-      // If we're on another page, go to homepage and collapse
-      if (!isHome) {
-        e.preventDefault()
-        window.location.href = '{{ site.baseurl }}/#blog'
-        return
-      }
-      
-      // Already collapsed on homepage, do nothing
-      return
     }
-
-    // CASE 2: Clicking "Notes" or other page
-    e.preventDefault()
-    
-    // If on homepage with full cover, animate then navigate
-    if (isHome && !$panel.hasClass('panel-cover--collapsed')) {
-      $panel.addClass('panel-cover--collapsed')
-      $content.addClass('animated slideInRight')
-      
-      setTimeout(function () {
-        window.location.href = href
-      }, 400)
-      return
-    }
-    
-    // Otherwise just navigate
-    window.location.href = href
-  })
+  });
 
   {% endif %}
 
   // Mobile menu
-  $('.btn-mobile-menu').on('click', function () {
-    $('.navigation-wrapper').toggleClass('visible animated bounceInDown')
-    $('.btn-mobile-menu__icon').toggleClass('icon-list icon-x-circle animated fadeIn')
-  })
+  $('.btn-mobile-menu').click(function () {
+    $('.navigation-wrapper').toggleClass('visible animated bounceInDown');
+    $('.btn-mobile-menu__icon').toggleClass('icon-list icon-x-circle animated fadeIn');
+  });
 
-})
+});
