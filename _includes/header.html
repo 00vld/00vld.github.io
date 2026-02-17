@@ -9,7 +9,7 @@
 
     <div class="panel-main__inner panel-inverted">
       <div class="panel-main__content">
-        <a href="{{ site.baseurl }}/" title="link to home of {{ site.title }}">
+        <a href="{{ site.baseurl }}/" title="link to home of {{ site.title }}" class="blog-button">
           <img src="{{ site.baseurl }}/images/profile.jpg" class="user-image" alt="My Profile Photo">
           <h1 class="panel-cover__title panel-title">{{ site.title }}</h1>
         </a>
@@ -21,21 +21,22 @@
 
           <nav class="cover-navigation cover-navigation--primary">
             <ul class="navigation">
-              <li class="navigation__item"><a href="{{ site.baseurl }}/" title="link to {{ site.title }} blog"
-                  class="blog-button">About</a></li>
+              <li class="navigation__item">
+                <a href="{{ site.baseurl }}/" title="link to {{ site.title }} blog" class="blog-button">About</a>
+              </li>
             </ul>
           </nav>
 
           <nav class="cover-navigation navigation--social">
             <ul class="navigation">
 
-                <!-- Notes -->
-                <li class="navigation__item">
-                  <a href="/navigation/" title="Notes" class="blog-button">
-                    <i class="icon icon-book"></i>
-                    <span class="label">Notes</span>
-                  </a>
-                </li>
+              <!-- Notes -->
+              <li class="navigation__item">
+                <a href="{{ site.baseurl }}/navigation/" title="Notes" class="blog-button">
+                  <i class="icon icon-book"></i>
+                  <span class="label">Notes</span>
+                </a>
+              </li>
 
               {% if site.author.twitter_username %}
               <!-- Twitter -->

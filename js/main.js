@@ -9,7 +9,8 @@ $(document).ready(function () {
   const $panel = $('.panel-cover')
   const $content = $('.content-wrapper')
 
-  const isHome =
+  // Check if we're on homepage
+  const isHomePage = 
     window.location.pathname === '{{ site.baseurl }}/' ||
     window.location.pathname === '{{ site.baseurl }}/index.html'
 
@@ -17,52 +18,49 @@ $(document).ready(function () {
 
   {% if site.disable_landing_page != true %}
 
-  /* Auto collapse when NOT homepage */
-  if (!isHome) {
+  // If not on homepage, collapse sidebar immediately
+  if (!isHomePage) {
     $panel.addClass('panel-cover--collapsed')
   }
 
-  /* Hero buttons (About / Notes etc) */
+  // Handle all blog button clicks
   $('a.blog-button').on('click', function (e) {
-
-    const targetUrl = $(this).attr('href')
-
-    // If not on homepage, allow normal navigation
-    if (!isHome) {
-      return
-    }
-
-    // On homepage, handle collapse/expand
     e.preventDefault()
-
-    const isCollapsed = $panel.hasClass('panel-cover--collapsed')
-
-    if (isCollapsed) {
-      // Expand back to full cover
-      $panel.removeClass('panel-cover--collapsed')
-      $content.removeClass('animated slideInRight')
-    } else {
-      // Collapse and navigate
+    
+    const targetUrl = $(this).attr('href')
+    
+    // ============================================
+    // SCENARIO 1: We're on the homepage
+    // ============================================
+    if (isHomePage) {
+      
+      // Add collapse class
       $panel.addClass('panel-cover--collapsed')
       $content.addClass('animated slideInRight')
-
-      // Navigate after animation completes
+      
+      // Wait for animation, then navigate
       setTimeout(function () {
         window.location.href = targetUrl
       }, 400)
+      
+      return
     }
-
+    
+    // ============================================
+    // SCENARIO 2: We're on About or Navigation page
+    // ============================================
+    
+    // Just navigate directly (no animation needed, sidebar already collapsed)
+    window.location.href = targetUrl
+    
   })
 
   {% endif %}
 
-  /* Mobile menu toggle */
+  // Mobile menu
   $('.btn-mobile-menu').on('click', function () {
-    $('.navigation-wrapper')
-      .toggleClass('visible animated bounceInDown')
-
-    $('.btn-mobile-menu__icon')
-      .toggleClass('icon-list icon-x-circle animated fadeIn')
+    $('.navigation-wrapper').toggleClass('visible animated bounceInDown')
+    $('.btn-mobile-menu__icon').toggleClass('icon-list icon-x-circle animated fadeIn')
   })
 
 })
