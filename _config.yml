@@ -1,8 +1,8 @@
 # Site settings
 title: 0vld
 description: 'Cybersecurity • Pentesting • CTFs'
-url: ''
-baseurl: ''
+url: "https://00vld.github.io"
+baseurl: ""
 # google_analytics: 'UA-XXXXXX-X'
 # disqus_shortname: 'your-disqus-name'
 # disable_landing_page: true
