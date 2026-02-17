@@ -5,54 +5,87 @@ sitemap:
 ---
 
 $(document).ready(function () {
-  var $panel = $('.panel-cover');
-  var $content = $('.content-wrapper');
 
-  $('body').addClass('page-loaded');
+  const $panel = $('.panel-cover')
+  const $content = $('.content-wrapper')
+
+  $('body').addClass('page-loaded')
 
   {% if site.disable_landing_page != true %}
 
-  // Detect current path
-  var currentPath = window.location.pathname.replace('{{ site.baseurl }}/', '');
-  
-  // If not on homepage, auto-collapse
-  if (currentPath !== '' && currentPath !== 'index.html') {
-    $panel.addClass('panel-cover--collapsed');
+  const pathname = window.location.pathname || '/'
+  const isHome = (
+    pathname === '{{ site.baseurl }}/' ||
+    pathname === '{{ site.baseurl }}/index.html' ||
+    pathname === '/' ||
+    pathname === '/index.html'
+  )
+
+  const isNavigationPage = pathname.indexOf('/navigation') !== -1
+
+  // Auto-collapse on navigation page or #blog hash
+  if (isNavigationPage || window.location.hash === '#blog') {
+    $panel.addClass('panel-cover--collapsed')
   }
 
-  // If hash is #blog, auto-collapse
-  if (window.location.hash === '#blog') {
-    $panel.addClass('panel-cover--collapsed');
-  }
+  $('a.blog-button').on('click', function (e) {
+    const rawHref = $(this).attr('href')
+    const href = rawHref.replace(window.location.origin, '')
 
-  // Blog button click
-  $('a.blog-button').click(function (e) {
-    var currentWidth = $panel.width();
-   
-    // If panel is not collapsed yet, collapse it
-    if (!$panel.hasClass('panel-cover--collapsed')) {
-      e.preventDefault();
-      
-      if (currentWidth < 960) {
-        // Mobile
-        $panel.addClass('panel-cover--collapsed');
-        $content.addClass('animated slideInRight');
-      } else {
-        // Desktop
-        $panel.css('max-width', currentWidth);
-        $panel.animate({'max-width': '530px', 'width': '40%'}, 400, 'swing', function () {
-          $panel.addClass('panel-cover--collapsed');
-        });
+    console.log('Clicked blog-button:', { href, isHome, pathname })
+
+    // ===== ABOUT BUTTON =====
+    if (href.includes('#blog')) {
+
+      // On homepage: toggle panel
+      if (isHome) {
+        e.preventDefault()
+        
+        if ($panel.hasClass('panel-cover--collapsed')) {
+          // Expand
+          $panel.removeClass('panel-cover--collapsed')
+        } else {
+          // Collapse
+          $panel.addClass('panel-cover--collapsed')
+          $content.addClass('animated slideInRight')
+        }
+        return
       }
+
+      // On other pages: go to homepage and show collapsed
+      e.preventDefault()
+      window.location.href = '{{ site.baseurl }}/#blog'
+      return
     }
-  });
+
+    // ===== NAVIGATION BUTTON =====
+    if (href.indexOf('/navigation') !== -1) {
+
+      // If already on navigation page -> go back home
+      if (isNavigationPage) {
+        e.preventDefault()
+        window.location.href = '{{ site.baseurl }}/'
+        return
+      }
+
+      // Otherwise (including homepage): go directly to navigation
+      // without collapsing first to avoid the About flash
+      return // allow normal navigation
+    }
+
+    // ===== DEFAULT =====
+    // allow default for any other links
+  })
 
   {% endif %}
 
-  // Mobile menu
-  $('.btn-mobile-menu').click(function () {
-    $('.navigation-wrapper').toggleClass('visible animated bounceInDown');
-    $('.btn-mobile-menu__icon').toggleClass('icon-list icon-x-circle animated fadeIn');
-  });
+  // Mobile menu toggle
+  $('.btn-mobile-menu').on('click', function () {
+    $('.navigation-wrapper')
+      .toggleClass('visible animated bounceInDown')
 
-});
+    $('.btn-mobile-menu__icon')
+      .toggleClass('icon-list icon-x-circle animated fadeIn')
+  })
+
+})
