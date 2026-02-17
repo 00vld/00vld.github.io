@@ -27,22 +27,29 @@ $(document).ready(function () {
 
     const targetUrl = $(this).attr('href')
 
+    // If not on homepage, allow normal navigation
     if (!isHome) {
-      return // allow normal navigation
+      return
     }
 
+    // On homepage, handle collapse/expand
     e.preventDefault()
 
-    if (!$panel.hasClass('panel-cover--collapsed')) {
+    const isCollapsed = $panel.hasClass('panel-cover--collapsed')
 
-      // Collapse using class only (no width animation)
+    if (isCollapsed) {
+      // Expand back to full cover
+      $panel.removeClass('panel-cover--collapsed')
+      $content.removeClass('animated slideInRight')
+    } else {
+      // Collapse and navigate
       $panel.addClass('panel-cover--collapsed')
       $content.addClass('animated slideInRight')
 
-      // Delay navigation slightly so animation feels smooth
+      // Navigate after animation completes
       setTimeout(function () {
         window.location.href = targetUrl
-      }, 300)
+      }, 400)
     }
 
   })

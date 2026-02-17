@@ -335,8 +335,64 @@ body.home .post-list {
   margin: 1.5rem 0;
 }
 
+/* ===== RESPONSIVE LAYOUT FIX (CRITICAL) ===== */
+
+/* Desktop: Proper sidebar/content relationship */
 @media (min-width: 961px) {
+  
+  /* Collapsed sidebar width */
   .panel-cover.panel-cover--collapsed {
-    width: 30% !important;   /* adjust if needed */
+    width: 30% !important;
+    max-width: 530px !important;
+    transition: width 0.4s ease;
   }
+  
+  /* THIS IS THE KEY FIX: Push content to the right of sidebar */
+  .panel-cover.panel-cover--collapsed + .content-wrapper {
+    margin-left: 30% !important;
+    width: auto !important;
+  }
+  
+  /* Center the inner content properly */
+  .panel-cover.panel-cover--collapsed + .content-wrapper .content-wrapper__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+}
+
+/* Mobile: Stack everything vertically */
+@media (max-width: 960px) {
+  
+  /* Force sidebar to full width */
+  .panel-cover,
+  .panel-cover.panel-cover--collapsed {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
+  /* Content takes full width on mobile */
+  .content-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+  
+  .content-wrapper__inner {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* Prevent horizontal scrolling */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Make all images responsive */
+img {
+  max-width: 100%;
+  height: auto;
 }
